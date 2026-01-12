@@ -67,9 +67,18 @@
     .brand{display:flex;align-items:center;gap:0.75rem}
     .brand .logo-mark{
       width:84px;height:84px; /* increase to a balanced square */
-      display:grid;place-items:center;overflow:hidden;border-radius:12px;box-shadow:0 10px 30px rgba(7,34,61,0.06);background:transparent;padding:0;flex-shrink:0;z-index:1;position:relative;border:1px solid rgba(7,34,61,0.04);
+      display:grid;place-items:center;overflow:hidden;border-radius:12px;box-shadow:0 10px 30px rgba(7,34,61,0.06);background:transparent;
+      padding:8px; /* <-- changed from 0 to allow full logo to fit inside the frame */
+      flex-shrink:0;z-index:1;position:relative;border:1px solid rgba(7,34,61,0.04);
     }
-    .logo-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0;position:relative;z-index:2}
+    .logo-img{
+      /* ...existing declarations... */
+      width:100%;
+      height:100%;
+      object-fit:contain; /* <-- changed from cover to contain to avoid cropping */
+      object-position:center;
+      display:block;border-radius:0;position:relative;z-index:2
+    }
 
     /* Static rectangular animated frame around the logo (no spin) */
     .brand .logo-mark::before{
@@ -115,9 +124,9 @@
     .quick-links .qlink{display:flex;flex-direction:column;align-items:center;gap:0.2rem;color:var(--muted);min-width:56px;text-align:center;padding:0.25rem;border-radius:8px;transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s, color .2s}
     .quick-links .qlink i{font-size:18px;color:var(--blue)}
     .quick-links .qlink span{font-size:0.72rem;display:block;color:var(--muted)}
-    .quick-links .qlink:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 18px 40px rgba(11,79,140,0.08);color:var(--blue)}
+    .quick-links .qlink:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 18px 40px rgba(30, 128, 213, 0.08);color:var(--blue)}
     .quick-links::-webkit-scrollbar{height:6px}
-    .quick-links::-webkit-scrollbar-thumb{background:rgba(11,79,140,0.08);border-radius:10px}
+    .quick-links::-webkit-scrollbar-thumb{background:rgba(136, 144, 152, 0.08);border-radius:10px}
 
     /* =========================
        Hero / Slider (قابل للتبديل)
@@ -192,8 +201,39 @@
     .stat{flex:1;background:linear-gradient(180deg,rgba(11,79,140,0.03),#fff);padding:1rem;border-radius:12px;text-align:center;border:1px solid rgba(11,79,140,0.03)}
 
     /* Clients logos */
-    .clients{display:flex;gap:0.85rem;flex-wrap:wrap;margin-top:0.9rem}
-    .client{background:white;padding:0.6rem;border-radius:10px;display:grid;place-items:center;border:1px solid rgba(11,79,140,0.03);min-width:140px;box-shadow:0 14px 36px rgba(11,79,140,0.03)}
+    .clients{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1rem;
+      margin-top:0.9rem;
+      align-items:center;
+      justify-items:center;
+    }
+    .client{
+      background:white;
+      padding:1rem; /* increased padding for larger appearance */
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(11,79,140,0.03);
+      box-shadow:0 18px 44px rgba(11,79,140,0.03);
+      width:100%;
+      max-width:420px;
+    }
+    .clients .client img{
+      width:auto;
+      max-width:100%;
+      max-height:180px; /* desktop large */
+      object-fit:contain;
+      display:block;
+    }
+
+    /* Mobile: single column, keep images comfortably large */
+    @media (max-width:768px){
+      .clients{grid-template-columns:1fr}
+      .clients .client{max-width:680px;padding:1rem}
+      .clients .client img{max-height:140px}
+    }
 
     /* Contact */
     .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:1rem;margin-top:1rem}
@@ -294,7 +334,7 @@ footer .fgrid{
 .clients .client img{
   border-radius:12px;
   border:6px solid rgba(255,255,255,0.92); /* subtle light frame */
-  box-shadow: 0 10px 30px rgba(11,79,140,0.06);
+  box-shadow: 0 10px 30px rgba(92, 160, 219, 0.06);
   transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .35s ease, border-color .35s ease, filter .35s ease;
   will-change: transform;
   display:block;
@@ -680,11 +720,7 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
         </div>
 
         <div class="clients">
-          <div class="client reveal" data-delay="0.06"><img src="haisami/37.jpg" alt="عميل 1"></div>
-          <div class="client reveal" data-delay="0.09"><img src="haisami/17.webp" alt="عميل 2"></div>
-          <div class="client reveal" data-delay="0.12"><img src="haisami/37.jpg" alt="عميل 3"></div>
-          <div class="client reveal" data-delay="0.15"><img src="haisami/37.jpg" alt="عميل 4"></div>
-          <div class="client releal" data-delay="0.18"><img src="haisami/37.jpg" alt="عميل 5"></div>
+          <div class="cf-alert" data-delay="0.06"><img src="haisami/37.jpg" alt="عميل 1"></div>
         </div>
       </div>
     </section>
@@ -834,12 +870,12 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
         <div style="display:flex;gap:0.6rem;margin-top:0.6rem">
           <a href="#" aria-label="لينكدإن" style="background:rgba(255,255,255,0.04);padding:0.6rem;border-radius:8px;display:grid;place-items:center"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="#" aria-label="تويتر" style="background:rgba(255,255,255,0.04);padding:0.6rem;border-radius:8px;display:grid;place-items:center"><i class="fa-brands fa-x-twitter"></i></a>
-          <a href="#" aria-label="يوتيوب" style="background:rgba(255,255,255,0.04);padding:0.6rem;border-radius:8px;display:grid;place-items:center"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" aria-label="يوتيوب" style="background:rgba(234, 234, 234, 0.04);padding:0.6rem;border-radius:8px;display:grid;place-items:center"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
     </div>
 
-    <div style="max-width:var(--container);margin:1.1rem auto 0;color:rgba(207,163,74,0.9);text-align:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.02)">
+    <div style="max-width:var(--container);margin:1.1rem auto 0;color:rgba(207,163,74,0.9);text-align:center;padding-top:1rem;border-top:1px solid rgba(255, 255, 255, 0.964)">
       <div style="margin-bottom:0.45rem">© <strong>غزلان الشرق</strong> <span id="year"></span>. جميع الحقوق محفوظة.</div>
       <div style="color:#cfe1ff;opacity:0.85">سياسة الخصوصية • الشروط والأحكام</div>
     </div>
@@ -957,6 +993,13 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
         'project-support': 'دعم مشاريع',
         engineering: 'خدمات هندسية'
       };
+      const SERVICE_LABELS_EN = {
+        general: 'General contracting',
+        supply: 'Supplies',
+        logistics: 'Logistics services',
+        'project-support': 'Project support',
+        engineering: 'Engineering services'
+      };
 
       function setLang(newLang){
         lang = newLang;
@@ -1029,10 +1072,17 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
           return;
         }
 
-        // Prepare payload with readable service label (Arabic)
-        const serviceLabel = SERVICE_LABELS_AR[service] || service;
+        // Prepare payload with readable service label in both languages so email shows exact choice
+        const labelAr = SERVICE_LABELS_AR[service] || service;
+        const labelEn = SERVICE_LABELS_EN[service] || service;
         const payload = {
-          name, email, phone, service: serviceLabel, message, _subject: `طلب تواصل - ${serviceLabel}`
+          name,
+          email,
+          phone,
+          service_ar: labelAr,
+          service_en: labelEn,
+          message,
+          _subject: `طلب تواصل - ${labelAr} / ${labelEn}`
         };
 
         // Send to Formspree endpoint
