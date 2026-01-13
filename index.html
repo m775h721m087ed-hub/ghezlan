@@ -762,7 +762,7 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
             <div class="form-row" style="margin-top:0.6rem">
               <div class="form-group">
                 <i class="fa-solid fa-envelope input-icon" aria-hidden="true"></i>
-                <input id="cf-email" name="email" class="form-input" type="email" placeholder="البريد الإلكتروني *" required aria-required="true" dir="ltr">
+                <input id="cf-email" name="email" class="form-input" type="email" placeholder="البريد الإلكتروني" required aria-required="true" dir="ltr">
               </div>
 
               <div class="form-group small">
@@ -800,12 +800,12 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
               <i class="fa-solid fa-phone"></i>
               <div>
                 <div style="font-weight:800">هاتف</div>
-                <div style="color:var(--muted)">777 771 770 (967)</div>
+                <div style="color:var(--muted)">770 771 777 (967)</div>
               </div>
             </div>
 
             <div class="info-item">
-              <i class="fa-brands fa-whatsapp" style="color:#25D366"></i>
+              <i class="fa-brands fa-whatsapp" style="font-weight:800"></i>
               <div>
                 <div style="font-weight:800">واتساب</div>
                 <div style="color:var(--muted)">818 563 774 (967)</div>
@@ -1006,9 +1006,9 @@ select.form-input{appearance:none;padding-inline-end:2.2rem;background-image:non
         langBtns.forEach(b=>{ b.classList.toggle('active', b.dataset.lang===lang); b.setAttribute('aria-pressed', b.dataset.lang===lang) });
         // update placeholders/labels
         if(lang==='ar'){
-          nameEl.placeholder = 'الاسم الكامل *'; emailEl.placeholder = '....البريد الإلكتروني'; phoneEl.placeholder = 'رقــم الهاتــف'; messageEl.placeholder = 'نص الرسالة... *';
+          nameEl.placeholder = 'الاسم الكامل'; emailEl.placeholder = 'البريد الإلكتروني'; phoneEl.placeholder = 'رقــم الهاتــف'; messageEl.placeholder = 'نص الرسالة... *';
           submitBtn.querySelector('.btn-text').textContent = 'إرسال';
-          resetBtn.textContent = 'مسح';
+          resetBtn.textC.ontent = 'مسح';
           serviceEl.querySelector('option').textContent = 'نوع الخدمة ...';
           const opts = ['مقاولات عامة','توريدات','خدمات لوجستية','دعم مشاريع','خدمات هندسية'];
           Array.from(serviceEl.options).slice(1).forEach((o,i)=> o.textContent = opts[i]);
